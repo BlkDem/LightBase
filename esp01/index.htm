@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Umolab - Base</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="favicon.png" rel="icon">
+  <link href="apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="bootstrap.min.css.gz" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="style_esp01.css.gz" rel="stylesheet">
+  
+  <script src="jscolor.min.js.gz"></script>
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top header-inner-pages">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="/">BASE</a></h1>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto " href="/">Home</a></li>
+          <li><a class="nav-link scrollto" href="/config">Config</a></li>
+        </ul>
+        <i class="mobile-nav-toggle" style="font-size: 3em;">&equiv;</i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container d-flex align-items-center justify-content-between">
+
+        <div class="row" style="margin-top: 48px;">
+          <div>
+            <h1 class="text-primary ml-4">Light Control</h1>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page mx-4" style="margin-top: -100px;">
+      <div class="container-fluid">
+		<div class="row justify-content-center">
+        <div class="col-sm-5 my-2 mx-2 py-4 border border-dark rounded">
+			<div class="row">
+				<h2 class="ml-4">Light Zone 1</h2>
+			</div>
+			<div class="row">
+				<div class="col-sm-8">
+					
+					<input id="zone1" value="FF00FF" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'update(this, \'#zone1\')'}">
+				</div>
+				<div class="col-sm-4">
+					<button type="button" class="btn btn-primary btn-block" onclick="zoneOff('#zone1')">Off</Button>
+				</div>
+			</div>
+			<div class="row border-top mt-4 pt-2">
+				<div class="col ml-3">
+					<label for="count1">Address: <span  id="caption_count1" class="text-info"></span></label>
+					<input type="range" class="custom-range" min="0" max="100" id="count1" onchange="addressChange('count1')" onInput="slideAddress('count1')">
+					
+				</div>				
+			</div>
+        </div>
+        <div class="col-sm-5 my-2 mx-2 py-4 border border-dark rounded">
+			<div class="row">
+				<h2 class="ml-4">Light Zone 2</h2>
+			</div>
+			<div class="row">
+				<div class="col-sm-8">
+					
+					<input id="zone2" value="FFFF00" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'update(this, \'#zone2\')'}">
+				</div>
+				<div class="col-sm-4">
+					<input type="button" value="Off" class="btn btn-primary btn-block" onclick="zoneOff('#zone2')">
+				</div>
+			</div>
+			<div class="row border-top mt-4 pt-2">
+				<div class="col ml-3">
+					<label for="count2">Address: <span  id="caption_count2" class="text-info"></span></label>
+					<input type="range" class="custom-range" min="0" max="100" id="count2"  onchange="addressChange('count2')" onInput="slideAddress('count2')">
+					
+				</div>				
+			</div>
+
+			
+        </div>
+        <div class="col-sm-5 my-2 mx-2 py-4 border border-dark rounded">
+			<div class="row">
+				<h2 class="ml-4">Light Zone 3</h2>
+			</div>
+			<div class="row">
+				<div class="col-sm-8">
+					
+					<input id="zone3" value="0000FF" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'update(this, \'#zone3\')'}">
+				</div>
+				<div class="col-sm-4">
+					<input type="button" value="Off" class="btn btn-primary btn-block" onclick="zoneOff('#zone3')">
+				</div>
+			</div>
+			<div class="row border-top mt-4 pt-2">
+				<div class="col ml-3">
+					<label for="count3">Address: <span  id="caption_count3" class="text-info"></span></label>
+					<input type="range" class="custom-range" min="0" max="100" id="count3" onchange="addressChange('count3')" onInput="slideAddress('count3')">
+					
+				</div>				
+			</div>
+
+			
+        </div>
+        <div class="col-sm-5 my-2 mx-2 py-4 border border-dark rounded">
+			<div class="row">
+				<h2 class="ml-4">Light Zone 4</h2>
+			</div>
+			<div class="row">
+				<div class="col-sm-8">
+					
+					<input id="zone4" value="FF0000" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'update(this, \'#zone4\')'}">
+				</div>
+				<div class="col-sm-4">
+					<input type="button" value="Off" class="btn btn-primary btn-block" onclick="zoneOff('#zone4')">
+				</div>
+			</div>
+			<div class="row border-top mt-4 pt-2">
+				<div class="col ml-3">
+					<label for="count4">Address: <span  id="caption_count4" class="text-info"></span></label>
+					<input type="range" class="custom-range" min="0" max="100" id="count4" onchange="addressChange('count4')" onInput="slideAddress('count4')">
+					
+				</div>				
+			</div>
+			
+        </div>
+
+		</div>
+	<div class="row justify-content-center">
+        <div class="col-sm-5 my-2 mx-2 py-4 border border-dark rounded">
+			<div class="row border-bottom">
+				<h2 class="ml-4">Preset 1</h2>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<label for="preset1_zone1">Zone 1</label>
+					<input id="preset1_zone1" value="FF00FF" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'updatePreset(this, \'#preset1_zone1\', 1)'}">
+				</div>
+				<div class="col-sm-6">
+					<label for="preset1_zone2">Zone 2</label>
+					<input id="preset1_zone2" value="00FF00" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'updatePreset(this, \'#preset1_zone2\', 1)'}">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<label for="preset1_zone3">Zone 3</label>
+					<input id="preset1_zone3" value="FF0000" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'updatePreset(this, \'#preset1_zone3\', 1)'}">
+				</div>
+				<div class="col-sm-6">
+					<label for="preset1_zone4">Zone 4</label>
+					<input id="preset1_zone4" value="0000FF" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'updatePreset(this, \'#preset1_zone4\', 1)'}">
+				</div>
+			</div>
+			<div class="row border-top mt-4 pt-2">
+				<div class="col text-center">
+					<input type="button" class="btn btn-primary" value="From Current" onClick="fromCurrent(1)"></button>
+					<input type="button" class="btn btn-primary" value="Apply Preset" onClick="applyPreset(1)"></button>					
+				</div>				
+			</div>
+        </div>
+		
+		<div class="col-sm-5 my-2 mx-2 py-4 border border-dark rounded">
+			<div class="row border-bottom">
+				<h2 class="ml-4">Preset 2</h2>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<label for="preset2_zone1">Zone 1</label>
+					<input id="preset2_zone1" value="FF00FF" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'updatePreset(this, \'#preset2_zone1\', 2)'}">
+				</div>
+				<div class="col-sm-6">
+					<label for="preset2_zone2">Zone 2</label>
+					<input id="preset2_zone2" value="00FF00" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'updatePreset(this, \'#preset2_zone2\', 2)'}">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<label for="preset2_zone3">Zone 3</label>
+					<input id="preset2_zone3" value="FF0000" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'updatePreset(this, \'#preset2_zone3\', 2)'}">
+				</div>
+				<div class="col-sm-6">
+					<label for="preset2_zone4">Zone 4</label>
+					<input id="preset2_zone4" value="0000FF" class="form-control input-lg mb-2" data-jscolor="{
+						onChange: 'updatePreset(this, \'#preset2_zone4\', 2)'}">
+				</div>
+			</div>
+			<div class="row border-top mt-4 pt-2">
+				<div class="col text-center">
+					<input type="button" class="btn btn-primary" value="From Current" onClick="fromCurrent(2)"></button>					
+					<input type="button" class="btn btn-primary" value="Apply Preset" onClick="applyPreset(2)"></button>					
+				</div>				
+			</div>
+        </div>
+	
+		</div>
+	  </div>
+    </section>
+  </main><!-- End #main -->
+    <div class="bg-dark text-center text-light py-4">
+			        <div class="copyright">
+						<h4>ARGB Controller "Base"</h4>
+						Four Zones ARGB Light Control<br>
+						&copy; Copyright <strong><span>Umolab</span></strong>. All Rights Reserved
+					</div>
+					<div class="credits">
+						Designed by <a href="https://umolab.ru/">Umolab</a>
+					</div>
+
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi ">&#9650;</i></a>
+
+
+  <!-- Template Main JS File -->
+  <script src="main.js.gz"></script>
+  <script src="app_esp01.js.gz"></script>
+
+</body>
+
+</html>

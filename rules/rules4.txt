@@ -1,0 +1,56 @@
+on zone do
+  let, 1, %eventvalue2%%256
+  let, 2, (%eventvalue2%/256)%256
+  let, 3, %eventvalue2%/65536
+  if [int#3]>255
+    let, 3, 255
+  endif
+  if [int#2]>255
+    let, 2, 255
+  endif
+  if [int#1]>255
+    let, 1, 255
+  endif
+  NeoPixelLine,%eventvalue4%,%eventvalue3%,[int#3],[int#2],[int#1]
+endon
+on zonesOff do
+  NeoPixelAll, 0,0,0
+endon
+on zonesOn do
+  event, MQTT2#zone1
+  event, MQTT2#zone2
+  event, MQTT2#zone3
+  event, MQTT2#zone4
+endon
+On MQTT2#zone1 do
+  asyncevent, zone=1,[MQTT2#zone1],[ZONE1#count1],1
+endon
+On MQTT2#zone2 do
+  let, 4, [ZONE1#count1]+1
+  asyncevent, zone=2,[MQTT2#zone2],[ZONE1#count2],[int#4]
+endon
+On MQTT2#zone3 do
+  let, 4, [ZONE1#count2]+1
+  asyncevent, zone=3,[MQTT2#zone3],[ZONE1#count3],[int#4]
+endon
+On MQTT2#zone4 do
+  let, 4, [ZONE1#count3]+1
+  asyncevent, zone=4,[MQTT2#zone4],[ZONE1#count4],[int#4]
+endon
+
+on ZONE1#count1 do
+  asyncevent, zone=1,[MQTT2#zone1],[ZONE1#count1],1
+endon
+on ZONE1#count2 do
+  let, 4, [ZONE1#count1]+1
+  asyncevent, zone=2,[MQTT2#zone2],[ZONE1#count2],[int#4]
+endon
+on ZONE1#count3 do
+  let, 4, [ZONE1#count2]+1
+  asyncevent, zone=3,[MQTT2#zone3],[ZONE1#count3],[int#4]
+endon
+on ZONE1#count4 do
+  let, 4, [ZONE1#count3]+1
+  asyncevent, zone=4,[MQTT2#zone4],[ZONE1#count4],[int#4]
+endon
+

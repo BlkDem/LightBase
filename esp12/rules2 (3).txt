@@ -1,0 +1,66 @@
+On System#Boot do
+  delay 100
+  nex, 'page0.pb1.val=0'
+  nex, 'page page0'
+  if [MQTT2#zone1]>0 
+    asyncevent zone1,[MQTT2#zone1],0
+  endif
+  if [MQTT2#zone2]>0 
+    asyncevent zone2,[MQTT2#zone2],0
+  endif
+  if [MQTT2#zone3]>0 
+    asyncevent zone3,[MQTT2#zone3],0
+  endif
+  if [MQTT2#zone4]>0 
+    asyncevent zone4,[MQTT2#zone4],0
+  endif
+endon
+
+On nexup do
+  nex, 'page1.edTime.txt="%systm_hm%"'
+  nex, 'page1.edTemp.txt="[BME#Temperature]"'
+endon
+
+On BME#Temperature do
+  Publish /%mac%/temp, [BME#Temperature]
+  Publish /%mac%/pressure, [BME#Pressure]
+  Publish /%mac%/humidity, [BME#Humidity]
+endon
+
+On Time#Initialized do
+nex, 'page0.pb1.val=10'
+delay 100
+nex, 'page0.pb1.val=25'
+nex, 'page2.edCloudID.txt="%unit%"'
+delay 100
+nex, 'page0.pb1.val=45'
+nex, 'page2.edCloud.txt="cloud1"'
+delay 100
+nex, 'page0.pb1.val=67'
+nex, 'page2.edUser.txt="umolab"'
+delay 100
+nex, 'page0.pb1.val=73'
+nex, 'page2.edTaho.txt="[RPM#value]"'
+delay 100
+nex, 'page0.pb1.val=87'
+nex, 'page2.edRPM.txt="[PWM#value]"'
+delay 100
+nex, 'page2.edIP.txt="%ip%"'
+nex, 'page0.pb1.val=98'
+nex, 'page page1'
+asyncevent nexup
+timerSet,1,1
+endon
+On sendinfo do
+  Publish /%mac%/IP, %ip%
+  Publish /%mac%/systime, %systime%
+  Publish /%mac%/uptime, %uptime%
+  Publish /%mac%/rssi, %rssi%
+  Publish /%mac%/ssid, %ssid%
+endon
+On Rules#Timer=1 do  
+  asyncevent nexup
+  asyncevent sendinfo
+  timerSet,1,60
+endon
+

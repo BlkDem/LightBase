@@ -1,0 +1,64 @@
+on zone do
+  let, 1, %eventvalue2%%256
+  let, 2, (%eventvalue2%/256)%256
+  let, 3, %eventvalue2%/65536
+  if [int#3]>255
+    let, 3, 255
+  endif
+  if [int#2]>255
+    let, 2, 255
+  endif
+  if [int#1]>255
+    let, 1, 255
+  endif
+  NeoPixelLine,%eventvalue4%,%eventvalue3%,[int#3],[int#2],[int#1]
+endon
+On MQTT2#zone1 do
+  asyncevent, zone=1,[MQTT2#zone1],[ZONE1#count1],1
+endon
+On MQTT2#zone2 do
+  asyncevent, zone=2,[MQTT2#zone2],[ZONE1#count2],[ZONE1#count1]+1
+endon
+On MQTT2#zone3 do
+  asyncevent, zone=3,[MQTT2#zone3],[ZONE1#count3],[ZONE1#count2]+1
+endon
+On MQTT2#zone4 do
+  asyncevent, zone=4,[MQTT2#zone4],[ZONE1#count4],[ZONE1#count3]+1
+endon
+
+on ZONE1#count1 do
+  asyncevent, zone=1,[MQTT2#zone1],[ZONE1#count1],1
+endon
+on ZONE1#count2 do
+  let, 4, [ZONE1#count1]+1
+  event zone=2,[MQTT2#zone2],[ZONE1#count2],[int#4]
+endon
+on ZONE1#count3 do
+  let, 4, [ZONE1#count2]+1
+  event zone=3,[MQTT2#zone3],[ZONE1#count3],[int#4]
+endon
+on ZONE1#count4 do
+  let, 4, [ZONE1#count3]+1
+  event zone=4,[MQTT2#zone4],[ZONE1#count4],[int#4]
+endon
+on preset do
+  Publish /%mac%/preset%eventvalue1%/zone%eventvalue2%, %eventvalue3%
+  if %eventvalue1%=1
+    TaskValueSet, 11, %eventvalue2%, %eventvalue3%
+  endif
+  if %eventvalue1%=2
+    TaskValueSet, 3, %eventvalue2%, %eventvalue3%
+  endif
+endon
+on presetLoad do
+  Publish /%mac%/zone%eventvalue1%, %eventvalue2%
+  TaskValueSet, 6, %eventvalue1%, %eventvalue2%
+endon
+on rangeSetup do
+  Publish /%mac%/count%eventvalue1%, %eventvalue2%
+  TaskValueSet, 10, %eventvalue1%, %eventvalue2%
+endon
+on zoneControl do
+  Publish /%mac%/zone%eventvalue1%, %eventvalue2%
+  TaskValueSet,6,%eventvalue1%,%eventvalue2%
+endon

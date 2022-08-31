@@ -1,0 +1,84 @@
+On MQTT#color do
+  let, 1, [MQTT#color]%256
+  let, 2, ([MQTT#color]/256)%256
+  let, 3, [MQTT#color]/65536
+  if [int#3]>255
+    let, 3, 255
+  endif
+  if [int#2]>255
+    let, 2, 255
+  endif
+  if [int#1]>255
+    let, 1, 255
+  endif
+  TaskValueSet 6,2, [int#3] 
+  TaskValueSet 6,3, [int#2]
+  TaskValueSet 6,4, [int#1]
+neopixelall, [int#3],[int#2],[int#1]   
+endon
+On MQTT#msg do
+  if [MQTT#msg]=1 
+    nex, 'page page3'
+  else
+    nex, 'page page1'
+  endif
+endon
+On MQTT#pwm do
+  PWM,13,[MQTT#pwm],1000,2500
+  if [MQTT#pwm] > 1000
+    TaskValueSet, 9, 1, 100  
+  else
+    TaskValueSet, 9, 1, [MQTT#pwm]/10
+  endif
+  nex, 'page2.edRPM.txt="[PWM#value]%"'
+endon
+On TACHO#Time do
+  if [TACHO#Time] > 0
+    TaskValueSet 7,1,1000/[TACHO#Time]*30
+  else
+    TaskValueSet 7,1,0
+  endif
+  if [TACHO#Count]=0 
+    Publish /%mac%/tacho, 0
+    nex, 'page2.edTaho.txt="0"'
+  else
+    Publish /%mac%/tacho, [RPM#rpmvalue]
+    nex, 'page2.edTaho.txt="[RPM#rpmvalue]"'
+  endif
+endon
+on strip do
+  neopixelall, [MQTT2#R],[MQTT2#G],[MQTT2#B]   
+endon
+On MQTT2#R do
+  asyncevent, strip
+endon
+On MQTT2#G do
+  asyncevent, strip
+endon
+On MQTT2#B do
+  asyncevent, strip
+endon
+on MQTTimport#Connected do
+  event, zonesOn 
+endon
+on preset do
+  Publish /%mac%/preset%eventvalue1%/zone%eventvalue2%, %eventvalue3%
+  if %eventvalue1%=1
+    TaskValueSet, 11, %eventvalue2%, %eventvalue3%
+  endif
+  if %eventvalue1%=2
+    TaskValueSet, 3, %eventvalue2%, %eventvalue3%
+  endif
+endon
+on presetLoad do
+  Publish /%mac%/zone%eventvalue1%, %eventvalue2%
+  TaskValueSet, 6, %eventvalue1%, %eventvalue2%
+endon
+on rangeSetup do
+  Publish /%mac%/count%eventvalue1%, %eventvalue2%
+  TaskValueSet, 10, %eventvalue1%, %eventvalue2%
+endon
+on zoneControl do
+  Publish /%mac%/zone%eventvalue1%, %eventvalue2%
+  TaskValueSet,6,%eventvalue1%,%eventvalue2%
+endon

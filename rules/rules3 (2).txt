@@ -1,0 +1,26 @@
+on nex#idx do
+  if [nex#idx]=1533 
+    neopixelall, 200,200,200
+  endif
+  if [nex#idx]=1534 
+    neopixelall, 0,0,0
+  endif
+  if [nex#idx]=1526 //red 
+    neopixelall, 200,0,0
+  endif
+  if [nex#idx]=1527 //green 
+    neopixelall, 0,200,0
+  endif
+  if [nex#idx]=1528 //green 
+    neopixelall, 0,0,200
+  endif
+  if [nex#idx]=1529 //cian 
+    neopixelall, 0,200,200
+  endif
+  if [nex#idx]=1530 //magenta 
+    neopixelall, 200,0,200
+  endif
+  if [nex#idx]=1531 //yellow 
+    neopixelall, 200,200,0
+  endif
+endon

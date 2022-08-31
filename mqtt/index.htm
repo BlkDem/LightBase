@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+Copyright 2013 dc-square GmbH
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+@author: Christoph Schäbel
+
+-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>uDevice - Monitor</title>
+
+    <link rel="stylesheet" href="style1.css">
+
+
+</head>
+<body class="notconnected">
+
+<div class="wrapper">
+  <div class="red"></div>
+  
+    <div class="green firstline">
+      <a href="device.htm"><img src="ul_logo_800_8bit.png"></a>
+      <span name="temp">26.60 C</span>
+     </div>
+    <div class="green secondline" name="time">
+      15:12:00
+     </div>
+      <div class="green thirdline">
+      LED MODE:
+     </div>
+     <div class="green fourthline">
+      <a href="device.htm" name="svalue">LED SETUP</a>
+     </div>
+  <div class="blue"></div>
+</div>
+
+<div id="header">
+
+</div>
+
+<script src="jquery.min.js"></script>
+<script src="moment.min.js"></script>
+<script src="mqttws31.js"></script>
+<script src="encoder.js"></script>
+<script src="function.js"></script>
+<script src="app.js"></script>
+
+<script>
+	//load();
+	
+
+    //$(document).foundation();
+    $(document).ready(function () {
+		
+		//console.log(DeviceID);
+        //$('#urlInput').val('cloud1.umolab.ru');
+        //$('#portInput').val('');
+        //$('#sslInput').val(websocketssl);
+        $('#clientIdInput').val('clientId-' + randomString(10));
+
+        /*$('#colorChooser').minicolors();
+
+        $("#addSubButton").fancybox({
+            'afterShow': function () {
+                var rndColor = websocketclient.getRandomColor();
+                $("#colorChooser").minicolors('value', rndColor);
+            }
+        });*/
+
+        websocketclient.render.toggle('publish');
+        websocketclient.render.toggle('messages');
+        websocketclient.render.toggle('sub');
+		websocketclient.connect();
+    });
+   /* websocketclient.onConnect = function() {
+	console.log('wsc connected');
+    };*/
+
+   
+   setTimeout(() => {  console.log("Subscribtions..."); 
+     //DeviceID=29;
+	 console.log(DeviceID);
+	 
+	 var value = $("[name='time']");
+	 $(value).attr('id', 'time'+DeviceID);
+	 value = $("[name='temp']");
+	 $(value).attr('id', 'temp'+DeviceID);
+	 value = $("[name='svalue']");
+	 $(value).attr('id', 'svalue'+DeviceID);
+     websocketclient.subscribe('/idx'+ DeviceID +'/status', 2, '999999');
+     websocketclient.subscribe('/idx'+ DeviceID +'/uptime', 2, '999999');
+     websocketclient.subscribe('/idx'+ DeviceID +'/color', 2, '999999');
+     websocketclient.subscribe('/idx'+ DeviceID +'/nvalue', 2, '999999');
+     websocketclient.subscribe('/idx'+ DeviceID +'/svalue', 2, '333333');
+     websocketclient.subscribe('/idx'+ DeviceID +'/temp', 2, 'AA3333');
+     websocketclient.subscribe('/idx'+ DeviceID +'/time', 2, 'AA33AA');
+	console.log("Ready!");
+   }, 2000);
+</script>
+</body>
+</html>
